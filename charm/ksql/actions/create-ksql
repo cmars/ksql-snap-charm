@@ -32,7 +32,7 @@ result = run(
 if result.returncode:
     hookenv.action_fail(result.stderr.decode("utf-8"))
 else:
-    hookenv.action_set('outcome="success"')
+    hookenv.action_set({'outcome': 'success'})
 
 os.remove(config_file)
 
