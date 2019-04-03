@@ -15,6 +15,13 @@ import (
 	yaml "gopkg.in/yaml.v1"
 )
 
+func numberOfPartitions() string {
+	if p := os.Getenv("KSQL_PARTITIONS"); p != "" {
+		return p
+	}
+	return "1"
+}
+
 type EntryType string
 
 const (
@@ -102,7 +109,7 @@ func (c *client) execute(statement string) error {
 	resp, err := c.post(map[string]interface{}{
 		"ksql": statement,
 		"streamsProperties": map[string]interface{}{
-			"ksql.sink.partitions":           "1",
+			"ksql.sink.partitions":           numberOfPartitions(),
 			"ksql.streams.auto.offset.reset": "earliest",
 		},
 	})
