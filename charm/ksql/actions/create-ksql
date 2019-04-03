@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/sbin/charm-env python3
 
 import sys
 import os
@@ -26,9 +26,9 @@ result = run(
     stderr=PIPE,
     env=env_vars)
 if result.returncode:
-    call['action-fail', result.stderr.decode("utf-8")]
+    call(['action-fail', result.stderr.decode("utf-8")])
 else:
-    call['action-set', 'outcome="success"']
+    call(['action-set', 'outcome="success"'])
 
 os.remove(config_file)
 
