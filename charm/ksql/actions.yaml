@@ -4,5 +4,8 @@ create-ksql:
     entries:
       type: string
       description: YAML formated list of ksql entries to create.
+    partitions:
+      type: string
+      description: number of partitions for ksql topics
   required: [entries]
   additionalProperties: false

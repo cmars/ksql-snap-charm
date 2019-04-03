@@ -17,18 +17,22 @@ fd, config_file = tempfile.mkstemp()
 with os.fdopen(fd, 'w') as out:
     call(['action-get', 'entries'], stdout=out)
 
+partitions = hookenv.action_get('partitions')
+
 env_vars = os.environ.copy()
 env_vars['KSQL_CONFIG'] = config_file
 env_vars['KSQL_SERVER'] = "http://{}:8088".format(hookenv.unit_private_ip())
+if partitions:
+    env_vars['KSQL_PARTITIONS'] = partitions
 result = run(
     [create_binary],
     stdout=PIPE,
     stderr=PIPE,
     env=env_vars)
 if result.returncode:
-    call(['action-fail', result.stderr.decode("utf-8")])
+    hookenv.action_fail(result.stderr.decode("utf-8"))
 else:
-    call(['action-set', 'outcome="success"'])
+    hookenv.action_set('outcome="success"')
 
 os.remove(config_file)
 
