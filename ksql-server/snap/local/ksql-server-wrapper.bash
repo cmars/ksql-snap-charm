@@ -20,4 +20,6 @@ export LOG_DIR=$SNAP_COMMON/log
 export PATH=$SNAP/usr/lib/jvm/default-java/bin:$PATH
 unset JAVA_HOME
 
+export JMX_PORT=${JMX_PORT:-9999}
+
 $SNAP/usr/bin/ksql-server-start $SNAP_COMMON/etc/ksql-server.properties
