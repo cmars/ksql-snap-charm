@@ -8,7 +8,6 @@ tags:
   - streaming
 min-juju-version: "2.4.0"
 series:
-  - xenial
   - bionic
 subordinate: false
 requires:
